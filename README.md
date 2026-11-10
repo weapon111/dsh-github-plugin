@@ -36,7 +36,7 @@ The bundle declares its patch in `cordis.patch.yml` and registers one row:
 ```yaml
 - insert:
     - id: github
-      name: '@local/github'
+      name: '@weapon111/dsh-github-plugin'
 ```
 
 ## Configure the token
