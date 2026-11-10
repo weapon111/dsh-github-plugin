@@ -35,7 +35,7 @@ plugin_manager install_bundle "E:\path\to\dsh-github-plugin"
 ```yaml
 - insert:
     - id: github
-      name: '@local/github'
+      name: '@weapon111/dsh-github-plugin'
 ```
 
 ## 配置令牌
