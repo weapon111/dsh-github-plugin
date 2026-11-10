@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "GitHub 仓库管理",
+    "description": "接入 GitHub 账号，让智能体与 Web 面板可以浏览仓库与文件、上传、下载、复制并部署。"
+  }
+}
