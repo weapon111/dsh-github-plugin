@@ -931,9 +931,9 @@ function registerTool(ctx, service) {
         case 'read':
           return service.readFile(args)
         case 'write':
+          return service.writeFile(args)
         case 'delete':
           return service.deleteFile(args)
-          return service.writeFile(args)
         case 'upload':
           return service.uploadFiles(args)
         case 'copy':
@@ -985,9 +985,9 @@ async function runPanelOp(service, op, body) {
     case 'read':
       return service.readFile(body)
     case 'write':
+      return service.writeFile(body)
     case 'delete':
       return service.deleteFile(body)
-      return service.writeFile(body)
     case 'upload':
       return service.uploadFiles(body)
     case 'copy':
