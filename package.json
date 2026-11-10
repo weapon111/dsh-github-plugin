@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "description": "Connect a GitHub account so the agent and the Web UI can browse repositories, upload and download files, and deploy sites or workflows.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "github"
+  ],
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -15,7 +22,9 @@
     "client.js",
     "cordis.patch.yml",
     "locale/*.json",
-    "icon.svg"
+    "icon.svg",
+    "README.md",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {
