@@ -1,5 +1,7 @@
 # dsh-github-plugin
 
+English | [简体中文](README.zh.md)
+
 A DSH (DeepSeek Harness) plugin that connects a GitHub account to the harness —
 so both **you** (through a Web panel in the left sidebar) and **the agent**
 (through a `github` tool) can manage repositories.
