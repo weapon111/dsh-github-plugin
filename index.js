@@ -5,7 +5,7 @@
  * the Web panel's authenticated `/api/github/*` routes both call that same
  * service, so the two callers never carry separate logic.
  *
- * @module @local/github
+ * @module @weapon111/dsh-github-plugin
  */
 
 /** Stable Cordis plugin name. */
