@@ -1,5 +1,5 @@
 {
-  "name": "@local/github",
+  "name": "@weapon111/dsh-github-plugin",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -11,6 +11,14 @@
     "deepseek-harness",
     "github"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weapon111/dsh-github-plugin.git"
+  },
+  "homepage": "https://github.com/weapon111/dsh-github-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/weapon111/dsh-github-plugin/issues"
+  },
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
