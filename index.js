@@ -495,6 +495,38 @@ function createService(ctx, config) {
     }
   }
 
+  /** Delete one file from a branch (a commit that removes the path). */
+  async function deleteFile(args = {}) {
+    const token = await requireToken()
+    const target = await normalizeRepo(token, args.repo)
+    const path = String(args.path ?? '').replace(/^\/+|\/+$/g, '')
+    if (path.length === 0) throw new GithubError('path is required for a delete', 400)
+    const branch = typeof args.branch === 'string' && args.branch.trim().length > 0 ? args.branch.trim() : undefined
+    let sha = typeof args.sha === 'string' && args.sha.length > 0 ? args.sha : undefined
+    if (sha === undefined) {
+      const current = await entryMeta(token, target.repo, path, branch)
+      if (Array.isArray(current)) throw new GithubError(`"${path}" is a directory; delete its files individually`, 400)
+      if (typeof current?.sha !== 'string') throw new GithubError(`"${path}" has no blob sha to delete`, 404)
+      sha = current.sha
+    }
+    const body = {
+      message:
+        typeof args.message === 'string' && args.message.trim().length > 0
+          ? args.message.trim()
+          : `Delete ${path}`,
+      sha,
+      ...(branch === undefined ? {} : { branch }),
+    }
+    const { data } = await call(token, `/repos/${target.repo}/contents/${encodePath(path)}`, { method: 'DELETE', body })
+    return {
+      repo: target.repo,
+      path,
+      deleted: true,
+      branch: branch ?? null,
+      commit: data?.commit?.sha ?? null,
+    }
+  }
+
   /** Upload several files in order, reporting each outcome. */
   async function uploadFiles(args = {}) {
     const files = Array.isArray(args.files) ? args.files : []
@@ -767,6 +799,7 @@ function createService(ctx, config) {
     browse,
     readFile,
     writeFile,
+    deleteFile,
     uploadFiles,
     openDownload,
     download,
@@ -813,6 +846,7 @@ const PARAMETERS = {
         'browse',
         'read',
         'write',
+        'delete',
         'upload',
         'copy',
         'download',
@@ -897,6 +931,8 @@ function registerTool(ctx, service) {
         case 'read':
           return service.readFile(args)
         case 'write':
+        case 'delete':
+          return service.deleteFile(args)
           return service.writeFile(args)
         case 'upload':
           return service.uploadFiles(args)
@@ -949,6 +985,8 @@ async function runPanelOp(service, op, body) {
     case 'read':
       return service.readFile(body)
     case 'write':
+    case 'delete':
+      return service.deleteFile(body)
       return service.writeFile(body)
     case 'upload':
       return service.uploadFiles(body)
